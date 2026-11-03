@@ -1,14 +1,28 @@
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
+import fs from 'fs';
 import path from 'path';
-import {defineConfig} from 'vite';
+import {defineConfig, type Plugin} from 'vite';
+
+const githubPagesSpaPlugin = (): Plugin => ({
+  name: 'github-pages-spa-fallback',
+  closeBundle() {
+    const distDir = path.resolve(import.meta.dirname, 'dist');
+    const indexPath = path.join(distDir, 'index.html');
+    const notFoundPath = path.join(distDir, '404.html');
+    if (fs.existsSync(indexPath)) {
+      fs.copyFileSync(indexPath, notFoundPath);
+    }
+  },
+});
 
 export default defineConfig(() => {
   return {
-    plugins: [react(), tailwindcss()],
+    base: './',
+    plugins: [react(), tailwindcss(), githubPagesSpaPlugin()],
     resolve: {
       alias: {
-        '@': path.resolve(__dirname, '.'),
+        '@': path.resolve(import.meta.dirname, '.'),
       },
     },
     server: {
