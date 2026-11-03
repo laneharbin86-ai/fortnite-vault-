@@ -1,0 +1,6 @@
+{
+  "name": "Fortnite Cosmetics Vault",
+  "description": "Explore, search, and inspect every Fortnite cosmetic and skin ever released with styles, rarity effects, live Item Shop, and Locker loadout builder.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
